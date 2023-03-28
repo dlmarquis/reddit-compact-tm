@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Fuck You Reddit
+// @name         Reddit Compact CPR
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Revive Reddit Compact with a site skin
