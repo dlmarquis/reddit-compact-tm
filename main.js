@@ -58,6 +58,10 @@ element.type = "text/css";
 '  display: block !important;' +
 '}' +
 '' +
+'#header-bottom-right {' +
+'  position: revert !important;' +
+'}' +
+'' +
 '.comment .midcol {' +
 '  width: unset !important;' +
 '}' +
