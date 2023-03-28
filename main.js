@@ -8,8 +8,13 @@
 // @grant        none
 // ==/UserScript==
 
+var metaTag = document.createElement("meta");
+metaTag.name = "viewport";
+metaTag.content = "width=device-width, initial-scale=1";
+document.head.appendChild(metaTag);
+
 var element = document.createElement('style'),
-	sheet;
+    sheet;
 
 // Append style element to head
 document.head.appendChild(element);
@@ -29,6 +34,7 @@ element.type = "text/css";
 '  margin-top: revert !important;' +
 '  margin-right: revert !important;' +
 '  display: block !important;' +
+'  white-space: normal !important;' +
 '}' +
 '' +
 '.link {' +
@@ -40,16 +46,16 @@ element.type = "text/css";
 '  font-weight: bold !important;' +
 '}' +
 '' +
-'.side, .footer-parent {' +
+'.entry {' +
+'  margin-right: 0 !important;' +
+'}' +
+'' +
+'.side, .footer-parent, .thumbnail.self {' +
 '  display: none;' +
 '}' +
 '' +
 '.tabmenu {' +
 '  display: block !important;' +
-'}' +
-'' +
-'.thumbnail.self {' +
-'  background-image: unset !important;' +
 '}' +
 '' +
 '.comment .midcol {' +
