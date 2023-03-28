@@ -877,9 +877,9 @@ element.type = "text/css";
 ' margin:3px 10px 2px 0;' +
 ' width:30px;' +
 ' height:30px;' +
-' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png);' +
-' background-position:-0px -468px;' +
-' background-repeat:no-repeat' +
+' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png) !important;' +
+' background-position:-0px -468px !important;' +
+' background-repeat:no-repeat !important' +
 '}' +
 '.link .expando-button.expanded {' +
 ' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png);' +
