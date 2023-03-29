@@ -879,12 +879,14 @@ element.type = "text/css";
 ' height:30px;' +
 ' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png) !important;' +
 ' background-position:-0px -468px !important;' +
-' background-repeat:no-repeat !important' +
+' background-repeat:no-repeat !important;' +
+' background-size: unset !important' +
 '}' +
 '.link .expando-button.expanded {' +
 ' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png);' +
 ' background-position:-0px -432px;' +
-' background-repeat:no-repeat' +
+' background-repeat:no-repeat;' +
+' background-size: unset !important' +
 '}' +
 '.link>.expando {' +
 ' clear:both;' +
