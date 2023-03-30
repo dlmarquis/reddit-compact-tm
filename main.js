@@ -26,6 +26,7 @@ $('.flat-list').addClass('clear options_expando hidden');
 $('.flat-list').removeClass('buttons');
 $('.flat-list li a').unwrap();
 $('.flat-list .embed-comment').remove();
+$('.flat-list .give-gold').remove();
 $('.flat-list a[data-event-action="permalink"]').prepend('<div class="permalink-icon"></div>');
 $('.flat-list a[data-event-action="parent"]').prepend('<div class="parent-icon"></div>');
 $('.flat-list a:contains("save")').prepend('<div class="save-icon"></div>');
@@ -123,8 +124,16 @@ element.type = "text/css";
 '  border-left: none !important;' +
 '}' +
 '' +
+'.comment.noncollapsed .usertext {' +
+'  min-height: 41px !important;' +
+'}' +
+'' +
 '.comment.noncollapsed .usertext, .comment.noncollapsed .tagline {' +
 '  padding-right: 38px;' +
+'}' +
+'' +
+'.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded, .usertext-edit {' +
+'  width: 100% !important;' +
 '}' +
 '' +
 '.comment {' +
