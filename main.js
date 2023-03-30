@@ -1,28 +1,71 @@
 // ==UserScript==
 // @name         Reddit Compact CPR
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Revive Reddit Compact with a site skin
 // @author       palenerd
 // @match        https://old.reddit.com/*
 // @grant        none
 // ==/UserScript==
 
+// This zooms the page to a reasonable viewing window
 var metaTag = document.createElement("meta");
 metaTag.name = "viewport";
 metaTag.content = "width=device-width, initial-scale=1";
 document.head.appendChild(metaTag);
+
+// Grab Reddit's instance of jQuery
+var $ = window.jQuery;
+var jQuery = window.jQuery;
+
+// Post/comment options shoved into expando to fatfinger-proof them
+let expandoGear = '<a href="javascript:void(0)" class="options_link"></a>';
+$('.tagline').after(expandoGear);
+
+$('.flat-list').addClass('clear options_expando hidden');
+$('.flat-list').removeClass('buttons');
+$('.flat-list li a').unwrap();
+$('.flat-list .embed-comment').remove();
+$('.flat-list a[data-event-action="permalink"]').prepend('<div class="permalink-icon"></div>');
+$('.flat-list a[data-event-action="parent"]').prepend('<div class="parent-icon"></div>');
+$('.flat-list a:contains("save")').prepend('<div class="save-icon"></div>');
+$('.flat-list a[data-event-action="edit"]').prepend('<div class="edit-icon"></div>');
+$('.flat-list a[data-event-action="comment"]').prepend('<div class="reply-icon"></div>');
+$('.flat-list a[data-event-action="report"]').prepend('<div class="report-icon"></div>');
+$('.flat-list a[data-event-action="hide"]').prepend('<div class="hide-icon"></div>');
+$('.flat-list a[data-event-action="unhide"]').prepend('<div class="unhide-icon"></div>');
+$('.flat-list a.post-sharing-button').prepend('<div class="email-icon"></div>');
+$(document).on('click', '.options_link', function() {
+    $(this).siblings('.options_expando').toggleClass('expanded');
+    $(this).toggleClass('active');
+});
+
+$('.link').each(function() {
+    var comments = $(this).find('.flat-list a.comments').detach();
+    if (comments.text() == "comment") {
+        comments.text('0');
+    } else {
+        comments.text(comments.text().split(' ')[0]);
+    }
+    $(this).find('.midcol').after('<div class="commentcount"></div>');
+    $(this).find('.commentcount').prepend(comments);
+
+    var stamps = $(this).find('.flat-list .stamp').detach();
+    $(this).find('.flat-list').before(stamps);
+
+    var score = $(this).find('.midcol .score').detach();
+    score.text(score.attr('title') + ' points ');
+    $(this).find('.tagline').prepend(score);
+});
+
+/* Load up the stylesheet now */
 
 var element = document.createElement('style'),
     sheet;
 
 // Append style element to head
 document.head.appendChild(element);
-
 element.type = "text/css";
-
-// Reference to the stylesheet
-//sheet = element.sheet;
 
   var style =
 '.content {' +
@@ -46,11 +89,16 @@ element.type = "text/css";
 '  font-weight: bold !important;' +
 '}' +
 '' +
-'.entry {' +
-'  margin-right: 0 !important;' +
+'.link .tagline .score {' +
+'  color: black;' +
 '}' +
 '' +
-'.side, .footer-parent, .thumbnail.self {' +
+'.entry {' +
+'  margin-right: 0 !important;' +
+'  overflow: visible !important;' +
+'}' +
+'' +
+'.side, .footer-parent, .thumbnail.self, #redesign-beta-optin-btn {' +
 '  display: none;' +
 '}' +
 '' +
@@ -62,6 +110,10 @@ element.type = "text/css";
 '  position: revert !important;' +
 '}' +
 '' +
+'.infobar {' +
+'  margin: 0 !important;' +
+'}' +
+'' +
 '.comment .midcol {' +
 '  width: unset !important;' +
 '}' +
@@ -69,6 +121,14 @@ element.type = "text/css";
 '.comment .child, .comment .showreplies {' +
 '  margin-left: 0 !important;' +
 '  border-left: none !important;' +
+'}' +
+'' +
+'.comment.noncollapsed .usertext, .comment.noncollapsed .tagline {' +
+'  padding-right: 38px;' +
+'}' +
+'' +
+'.comment {' +
+'  overflow: hidden;' +
 '}' +
 '' +
 '.nav-buttons {' +
@@ -815,6 +875,8 @@ element.type = "text/css";
 ' margin:0 0 5px 5px;' +
 ' overflow:hidden;' +
 ' max-height:50px' +
+' max-width: 100px;' +
+' width: unset !important;' +
 '}' +
 '.link .thumbnail img {' +
 ' max-width:50px;' +
@@ -884,7 +946,7 @@ element.type = "text/css";
 '}' +
 '.link .expando-button.expanded {' +
 ' background-image:url(https://www.redditstatic.com/sprite-compact.fDSukJPD218.png);' +
-' background-position:-0px -432px;' +
+' background-position:-0px -432px !important;' +
 ' background-repeat:no-repeat;' +
 ' background-size: unset !important' +
 '}' +
