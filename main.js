@@ -18,6 +18,34 @@ document.head.appendChild(metaTag);
 var $ = window.jQuery;
 var jQuery = window.jQuery;
 
+$('ul.tabmenu:not(.formtab)').wrap('<div class="subtoolbar" />');
+$('#header-img, .pagename').wrapAll('<div id="topbar" />');
+$('#header-img').wrap('<div class="left" />');
+$('.pagename').wrap('<h1 />');
+$('#header-bottom-left').html($('#header-bottom-left').html().replace(/&nbsp;/g,''));
+$('#topbar').append('<div class="right"><a class="topbar-options" href="javascript:void(0)" id="topmenu_toggle"></a></div>');
+
+$('#header-bottom-right').attr('id', 'top_menu');
+
+$("#topmenu_toggle").click(function() {
+    $(this).toggleClass("active");
+    $("#top_menu").toggle();
+});
+
+$('#top_menu .separator').remove();
+var mail = $('#top_menu #mail').detach();
+$('#topmenu_toggle').before(mail);
+
+const url = window.location.href;
+let baseUrl = url;
+let searchLink = '<a href="' + baseUrl + 'search">search</a>';
+let submitLink = '<a href="' + baseUrl + 'submit">submit</a>';
+
+$('#chat').after(searchLink);
+$('#chat').after(submitLink);
+
+$('#top_menu > *').wrap('<div class="menuitem" />');
+
 // Post/comment options shoved into expando to fatfinger-proof them
 let expandoGear = '<a href="javascript:void(0)" class="options_link"></a>';
 $('.tagline').after(expandoGear);
@@ -84,6 +112,10 @@ element.type = "text/css";
 '.link {' +
 '  margin-bottom: revert !important;' +
 '  padding-left: revert !important;' +
+'  border-left: 0 !important;' +
+'  border-right: 0 !important;' +
+'  -webkit-box-shadow: none !important;' +
+'  box-shadow: none !important;' +
 '}' +
 '' +
 '.link .title {' +
@@ -99,16 +131,73 @@ element.type = "text/css";
 '  overflow: visible !important;' +
 '}' +
 '' +
-'.side, .footer-parent, .thumbnail.self, #redesign-beta-optin-btn {' +
+'.comment .entry, .message .entry {' +
+'  margin-left: 0 !important;' +
+'  padding-right: 0 !important;' +
+'}' +
+'' +
+'.side, .footer-parent, .thumbnail.self, #redesign-beta-optin-btn, .beta-hint {' +
 '  display: none;' +
 '}' +
 '' +
 '.tabmenu {' +
 '  display: block !important;' +
+'  overflow-x: scroll;' +
+'}' +
+'' +
+'.tabmenu li:not(.selected) a {' +
+'  background: transparent !important;' +
+'}' +
+'' +
+'.tabmenu li.selected a {' +
+'  color: #4c566c !important;' +
+'}' +
+'' +
+'.tabmenu li {' +
+'  margin: 0 !important' +
+'}' +
+'' +
+'#newlink .tabmenu li {' +
+'  display: inline-block !important;' +
+'}' +
+'' +
+'.formtabs-content {' +
+'  width: unset !important;' +
+'}' +
+'' +
+'#newlink-flair-dropdown {' +
+'  position: fixed !important;' +
+'  top: 0 !important;' +
+'  left: 0 !important;' +
+'}' +
+'' +
+'.roundfield {' +
+'  width: unset !important;' +
+'}' +
+'' +
+'.tabmenu.formtab .selected a {' +
+'  font-size: 100% !important;' +
+'}' +
+'' +
+'#header-img {' +
+'  height: 40px !important;' +
+'  width: 120px !important;' +
+'  scale: 80%;' +
 '}' +
 '' +
 '#header-bottom-right {' +
 '  position: revert !important;' +
+'}' +
+'' +
+'#chat, #mail {' +
+'  top: 0 !important;' +
+'}' +
+'' +
+'#chat {' +
+'  height: unset !important;' +
+'  width: unset !important;' +
+'  text-indent: 0 !important;' +
+'  background: transparent !important;' +
 '}' +
 '' +
 '.infobar {' +
@@ -134,10 +223,15 @@ element.type = "text/css";
 '' +
 '.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded {' +
 '  display: inline-block !important;' +
+'  height: min-content !important;' +
 '}' +
 '' +
 '.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded, .usertext-edit {' +
 '  width: 100% !important;' +
+'}' +
+'' +
+'.link .options_expando a, .comment .options_expando a, .message .options_expando a {' +
+'  vertical-align: bottom;' +
 '}' +
 '' +
 '.comment {' +
