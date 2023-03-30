@@ -125,11 +125,15 @@ element.type = "text/css";
 '}' +
 '' +
 '.comment.noncollapsed .usertext {' +
-'  min-height: 41px !important;' +
+'  min-height: 51px !important;' +
 '}' +
 '' +
 '.comment.noncollapsed .usertext, .comment.noncollapsed .tagline {' +
 '  padding-right: 38px;' +
+'}' +
+'' +
+'.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded {' +
+'  display: inline-block !important;' +
 '}' +
 '' +
 '.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded, .usertext-edit {' +
