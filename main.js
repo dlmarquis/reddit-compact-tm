@@ -48,6 +48,7 @@ $('#top_menu > *').wrap('<div class="menuitem" />');
 
 // Post/comment options shoved into expando to fatfinger-proof them
 let expandoGear = '<a href="javascript:void(0)" class="options_link"></a>';
+$('.search-result').addClass('link');
 $('.tagline').after(expandoGear);
 
 $('.flat-list').addClass('clear options_expando hidden');
@@ -136,7 +137,7 @@ element.type = "text/css";
 '  padding-right: 0 !important;' +
 '}' +
 '' +
-'.side, .footer-parent, .thumbnail.self, #redesign-beta-optin-btn, .beta-hint {' +
+'.side, .footer-parent, .thumbnail.self, #sr-header-area, .beta-hint {' +
 '  display: none;' +
 '}' +
 '' +
@@ -179,6 +180,13 @@ element.type = "text/css";
 '  font-size: 100% !important;' +
 '}' +
 '' +
+'.search-result-group {' +
+'  max-width: unset !important;' +
+'  min-width: unset !important;' +
+'  padding-left: 0 !important;' +
+'  padding-right: 0 !important;' +
+'}' +
+'' +
 '#header-img {' +
 '  height: 40px !important;' +
 '  width: 120px !important;' +
@@ -187,6 +195,10 @@ element.type = "text/css";
 '' +
 '#header-bottom-right {' +
 '  position: revert !important;' +
+'}' +
+'' +
+'#top_menu {' +
+'  font-size: 14px !important;' +
 '}' +
 '' +
 '#chat, #mail {' +
@@ -921,7 +933,7 @@ element.type = "text/css";
 '.link:first-child {' +
 ' border-top:none' +
 '}' +
-'.link.odd {' +
+'.link.odd, .search-result:nth-of-type(2n+1) {' +
 ' background:rgba(206,227,248,0.5)' +
 '}' +
 '.link>.rank {' +
