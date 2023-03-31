@@ -141,6 +141,10 @@ element.type = "text/css";
 '  display: none;' +
 '}' +
 '' +
+'#topbar > h1 {' +
+'  padding-top: 8px;' +
+'}' +
+'' +
 '.tabmenu {' +
 '  display: block !important;' +
 '  overflow-x: scroll;' +
