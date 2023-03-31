@@ -142,7 +142,7 @@ element.type = "text/css";
 '}' +
 '' +
 '#topbar > h1 {' +
-'  padding-top: 8px;' +
+'  padding-top: 8px !important;' +
 '}' +
 '' +
 '.tabmenu {' +
