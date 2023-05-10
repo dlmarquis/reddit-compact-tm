@@ -51,7 +51,7 @@ $('#top_menu > *').wrap('<div class="menuitem" />');
 // Post/comment options shoved into expando to fatfinger-proof them
 let expandoGear = '<a href="javascript:void(0)" class="options_link"></a>';
 $('.search-result').addClass('link');
-$('.tagline').after(expandoGear);
+$('.comment > .entry > .tagline, .link .tagline').after(expandoGear);
 
 $('.flat-list').addClass('clear options_expando hidden');
 $('.flat-list').removeClass('buttons');
@@ -67,6 +67,9 @@ $('.flat-list a[data-event-action="report"]').prepend('<div class="report-icon">
 $('.flat-list a[data-event-action="hide"]').prepend('<div class="hide-icon"></div>');
 $('.flat-list a[data-event-action="unhide"]').prepend('<div class="unhide-icon"></div>');
 $('.flat-list a.post-sharing-button').prepend('<div class="email-icon"></div>');
+var mainExpando = $('.top-matter').siblings('.options_expando').detach();
+$('.top-matter').find('.options_link').after(mainExpando);
+
 $(document).on('click', '.options_link', function() {
     $(this).siblings('.options_expando').toggleClass('expanded');
     $(this).toggleClass('active');
@@ -92,6 +95,8 @@ $('.link').each(function() {
     var flair = $(this).find('.linkflairlabel').detach();
     $(this).find('p.title').before(flair);
 });
+
+$('.search-expando-button').addClass('button');
 
 /* Load up the stylesheet now */
 
@@ -197,6 +202,20 @@ element.type = "text/css";
 '  padding-right: 0 !important;' +
 '}' +
 '' +
+'.searchpane {' +
+' margin-right: 5px !important;' +
+'}' +
+'' +
+'.combined-search-page #search input[type="text"] {' +
+'  max-width: unset !important;' +
+'  min-width: unset !important;' +
+'}' +
+'' +
+'.md ol, .md ul {' +
+'  margin: 10px 1em !important;' +
+'  padding-left: 0 !important;' +
+'}' +
+'' +
 '#header-img {' +
 '  height: 40px !important;' +
 '  width: 120px !important;' +
@@ -256,6 +275,35 @@ element.type = "text/css";
 '  width: calc(100% + 16px) !important;' +
 '  position: relative;' +
 '  left: -8px;' +
+'}' +
+'' +
+'.no-constraints-when-pinned {' +
+'  max-width: unset !important;' +
+'  min-width: unset !important;' +
+'  max-height: unset !important;' +
+'  min-height: unset !important;' +
+'}' +
+'' +
+'.reddit-video-player-root::after {' +
+'  padding-top: 0 !important;' +
+'}' +
+'' +
+'.reddit-video-player-root > video, .reddit-video-player-root > img {' +
+'  position: revert !important;' +
+'  transform: unset !important;' +
+'}' +
+'' +
+'.morecomments .gray {' +
+'  color: white !important;' +
+'  font-size: smaller;' +
+'}' +
+'' +
+'.morecomments a {' +
+'  font-size: small !important;' +
+'}' +
+'' +
+'.panestack-title {' +
+'  margin: 10px 10px 0 10px !important' +
 '}' +
 '' +
 '.usertext-edit, .usertext-edit .md > textarea {' +
