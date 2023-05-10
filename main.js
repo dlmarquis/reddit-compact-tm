@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Reddit Compact CPR
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Revive Reddit Compact with a site skin
 // @author       palenerd
 // @match        https://old.reddit.com/*
@@ -36,15 +36,17 @@ $('#top_menu .separator').remove();
 var mail = $('#top_menu #mail').detach();
 $('#topmenu_toggle').before(mail);
 
-const url = window.location.href;
-let baseUrl = url;
-let searchLink = '<a href="' + baseUrl + 'search">search</a>';
-let submitLink = '<a href="' + baseUrl + 'submit">submit</a>';
+//const url = window.location.href;
+const searchUrl = $('#search').attr('action');
+const submitUrl = $('.submit-text a').attr('href');
+let searchLink = '<a href="' + searchUrl + '">search</a>';
+let submitLink = '<a href="' + submitUrl + '">submit</a>';
 
 $('#chat').after(searchLink);
 $('#chat').after(submitLink);
 
 $('#top_menu > *').wrap('<div class="menuitem" />');
+
 
 // Post/comment options shoved into expando to fatfinger-proof them
 let expandoGear = '<a href="javascript:void(0)" class="options_link"></a>';
@@ -86,6 +88,9 @@ $('.link').each(function() {
     var score = $(this).find('.midcol .score').detach();
     score.text(score.attr('title') + ' points ');
     $(this).find('.tagline').prepend(score);
+
+    var flair = $(this).find('.linkflairlabel').detach();
+    $(this).find('p.title').before(flair);
 });
 
 /* Load up the stylesheet now */
@@ -121,6 +126,7 @@ element.type = "text/css";
 '' +
 '.link .title {' +
 '  font-weight: bold !important;' +
+'  font-size: 14px !important;' +
 '}' +
 '' +
 '.link .tagline .score {' +
@@ -137,12 +143,12 @@ element.type = "text/css";
 '  padding-right: 0 !important;' +
 '}' +
 '' +
-'.side, .footer-parent, .thumbnail.self, #sr-header-area, .beta-hint {' +
-'  display: none;' +
+'.commentarea > .usertext {' +
+'  width: calc(100vw - 20px);' +
 '}' +
 '' +
-'#topbar > h1 {' +
-'  padding-top: 8px !important;' +
+'.side, .footer-parent, .thumbnail.self, #sr-header-area, .beta-hint {' +
+'  display: none;' +
 '}' +
 '' +
 '.tabmenu {' +
@@ -242,8 +248,26 @@ element.type = "text/css";
 '  height: min-content !important;' +
 '}' +
 '' +
-'.link .options_expando.expanded, .comment .options_expando.expanded, .message .options_expando.expanded, .usertext-edit {' +
+'.link .options_expando.expanded, .message .options_expando.expanded {' +
+'  width: 100vw !important;' +
+'}' +
+'' +
+'.comment .options_expando.expanded {' +
+'  width: calc(100% + 16px) !important;' +
+'  position: relative;' +
+'  left: -8px;' +
+'}' +
+'' +
+'.usertext-edit, .usertext-edit .md > textarea {' +
 '  width: 100% !important;' +
+'}' +
+'' +
+'.usertext .bottom-area {' +
+'  width: revert !important;' +
+'}' +
+'' +
+'.comment.noncollapsed .usertext.cloneable, .comment.noncollapsed {' +
+'  padding-right: 0px !important;' +
 '}' +
 '' +
 '.link .options_expando a, .comment .options_expando a, .message .options_expando a {' +
@@ -280,6 +304,24 @@ element.type = "text/css";
 '  font-weight: bold;' +
 '  color: white;' +
 '  text-shadow: 0px 1px 1px rgba(255,255,255,0.1),0px -1px 1px rgba(0,0,0,0.4);' +
+'}' +
+'' +
+'.pagename {' +
+'  font-size: 18px !important;' +
+'  font-variant: unset !important;' +
+'  margin-right: 0 !important;' +
+'}' +
+'' +
+'.wiki-page-content {' +
+'  margin-right: 15px !important;' +
+'}' +
+'' +
+'.wiki-page .wiki-page-content .wiki > .toc > ul {' +
+'  float: unset !important;' +
+'}' +
+'' +
+'.markdownEditor {' +
+'  white-space: break-spaces !important;' +
 '}' +
 '' +
 '/* Original .compact CSS */' +
@@ -680,7 +722,7 @@ element.type = "text/css";
 '}' +
 '#topbar .left {' +
 ' position:absolute;' +
-' left:0;' +
+' left:-10px;' +
 ' bottom:3px;' +
 ' overflow:hidden;' +
 ' max-height:40px;' +
@@ -689,7 +731,7 @@ element.type = "text/css";
 '#topbar .right {' +
 ' position:absolute;' +
 ' right:10px;' +
-' bottom:1px;' +
+' bottom:-3px;' +
 ' z-index:3' +
 '}' +
 '#topbar>h1 {' +
